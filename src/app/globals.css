@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 90 14% 96%;
+    --foreground: 220 15% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 11%;
+
+    --primary: 221 68% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 100 8% 91%;
+    --secondary-foreground: 220 15% 11%;
+
+    --muted: 100 8% 93%;
+    --muted-foreground: 220 8% 38%;
+
+    --accent: 100 8% 91%;
+    --accent-foreground: 220 15% 11%;
+
+    --destructive: 4 61% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 100 10% 87%;
+    --input: 100 10% 87%;
+    --ring: 221 68% 42%;
+
+    --console: 216 15% 9%;
+    --console-foreground: 216 10% 80%;
+    --console-border: 216 12% 16%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+}
+
+.status-rail {
+  position: relative;
+}
+.status-rail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 2px 0 0 2px;
+  background-color: var(--rail-color, hsl(var(--muted-foreground)));
+}

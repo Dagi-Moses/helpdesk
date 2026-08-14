@@ -15,5 +15,11 @@ export const registerSchema = z.object({
     .min(8, "At least 8 characters")
     .regex(/[A-Z]/, "Needs an uppercase letter")
     .regex(/[0-9]/, "Needs a number"),
-});
+
+  confirmPassword: z.string().min(1, "Please confirm your password"),
+})
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 export type RegisterInput = z.infer<typeof registerSchema>;

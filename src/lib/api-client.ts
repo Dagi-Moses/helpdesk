@@ -21,10 +21,12 @@ export const tokenStore = {
 export class ApiError extends Error {
   status: number;
   details?: unknown;
-  constructor(message: string, status: number, details?: unknown) {
+code?: string;
+  constructor(message: string, status: number, details?: unknown, code?: string) {
     super(message);
     this.status = status;
     this.details = details;
+    this.code = code;
   }
 }
 
@@ -83,7 +85,7 @@ async function request<T>(path: string, options: RequestOptions = {}, isRetry = 
   const json = await res.json().catch(() => ({}));
 
   if (!res.ok) {
-    throw new ApiError(json.message || "Request failed", res.status, json.details);
+    throw new ApiError(json.message || "Request failed", res.status, json.details, json.code);
   }
 
   return json as T;

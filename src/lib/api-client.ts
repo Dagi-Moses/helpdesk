@@ -1,6 +1,6 @@
 import { ApiEnvelope } from "@/lib/types";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api/v1";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/v1";
 
 const ACCESS_KEY = "helpdesk_access_token";
 const REFRESH_KEY = "helpdesk_refresh_token";

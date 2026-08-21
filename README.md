@@ -27,7 +27,7 @@ npm run dev
 ```
 
 Requires the [helpdesk-backend](../helpdesk-backend) API running (defaults to
-`http://localhost:4000/api/v1`). Log in with one of the seeded demo accounts:
+`http://localhost:4000/v1`). Log in with one of the seeded demo accounts:
 
 | Role          | Email                    | Password      |
 |---------------|--------------------------|----------------|

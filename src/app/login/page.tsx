@@ -189,9 +189,9 @@ export default function LoginPage() {
         </Link>
       </p>
 
-      <div className="mt-8 rounded-md border border-border bg-muted/50 p-3 font-mono text-xs text-muted-foreground">
+      {/* <div className="mt-8 rounded-md border border-border bg-muted/50 p-3 font-mono text-xs text-muted-foreground">
         Demo: employee@helpdesk.local / agent@helpdesk.local / admin@helpdesk.local — Password123
-      </div>
+      </div> */}
     </AuthShell>
   );
 }

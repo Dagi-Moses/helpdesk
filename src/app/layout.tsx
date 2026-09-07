@@ -11,6 +11,7 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jet
 export const metadata: Metadata = {
   title: "Helpdesk | IT Support Console | Qrynex",
   description: "Enterprise IT helpdesk ticketing system",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

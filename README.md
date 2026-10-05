@@ -27,13 +27,15 @@ npm run dev
 ```
 
 Requires the [helpdesk-backend](../helpdesk-backend) API running (defaults to
-`http://localhost:4000/v1`). Log in with one of the seeded demo accounts:
+`http://localhost:4000/v1`).
 
-| Role          | Email                    | Password      |
-|---------------|--------------------------|----------------|
-| ADMIN         | admin@helpdesk.local     | Password123    |
-| SUPPORT_AGENT | agent@helpdesk.local     | Password123    |
-| EMPLOYEE      | employee@helpdesk.local  | Password123    |
+Log in using the seeded accounts. The **ADMIN email is the email configured in the backend `.env` file using `SEED_ADMIN_EMAIL`**.
+
+For example:
+
+```env
+SEED_ADMIN_EMAIL=example@mail.com
+SEED_ADMIN_PASSWORD=password
 
 ## Structure
 

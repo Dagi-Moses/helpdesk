@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Work_Sans, JetBrains_Mono } from "next/font/google";
 import { Providers } from "@/components/layout/providers";
+
 import "./globals.css";
 
 
@@ -18,7 +19,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${manrope.variable} ${workSans.variable} ${jetbrainsMono.variable} font-body`}>
-        <Providers>{children}</Providers>
+        <Providers>
+        
+            {children}
+         
+        </Providers>
       </body>
     </html>
   );

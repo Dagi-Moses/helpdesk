@@ -201,7 +201,8 @@ useEffect(() => {
           <div className="space-y-1.5">
             <Label htmlFor="confirmPassword">Confirm Password</Label>
             <div className="relative">
-            <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder="••••••••" {...register("confirmPassword")} />
+            <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder="••••••••" {...register("confirmPassword")}
+              className="[&::-ms-reveal]:hidden [&::-ms-clear]:hidden" />
            <button
                 type="button"
                 onClick={() => setShowConfirmPassword((prev) => !prev)}

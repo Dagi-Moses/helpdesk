@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { initials } from "@/lib/utils";
 import { LogOut } from "lucide-react";
+import { NotificationBell } from "@/components/layout/notification-bell";
 
 export function Topbar({ title }: { title: string }) {
   const { user, logout } = useAuth();
@@ -20,7 +21,8 @@ export function Topbar({ title }: { title: string }) {
   return (
     <header className="flex h-16 items-center justify-between border-b border-border px-6">
       <h1 className="font-display text-lg font-semibold">{title}</h1>
-
+     <div className="flex items-center gap-2">
+        <NotificationBell />
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center gap-2.5 rounded-md px-2 py-1.5 outline-none hover:bg-muted">
           <Avatar>
@@ -42,6 +44,8 @@ export function Topbar({ title }: { title: string }) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      </div>
+      
     </header>
   );
 }

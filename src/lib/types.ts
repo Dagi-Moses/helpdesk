@@ -17,6 +17,7 @@ export interface User {
   lastName: string;
   role: Role;
   departmentId?: string | null;
+  department?: Department | null;
   isActive: boolean;
   createdAt: string;
 }
@@ -51,10 +52,11 @@ export interface TicketHistoryEntry {
 export interface Attachment {
   id: string;
   fileName: string;
-  fileUrl: string;
   fileSize: number;
   mimeType: string;
+  downloadUrl: string;
   createdAt: string;
+  uploadedBy?: Pick<User, "id" | "firstName" | "lastName">;
 }
 
 export interface Ticket {
@@ -108,4 +110,26 @@ export interface AuthResponse {
   user: User;
   accessToken: string;
   refreshToken: string;
+}
+
+export interface Department {
+  id: string;
+  name: string;
+}
+
+export type NotificationType =
+  | "TICKET_CREATED"
+  | "TICKET_ASSIGNED"
+  | "TICKET_COMMENTED"
+  | "TICKET_RESOLVED"
+  | "TICKET_CLOSED";
+
+export interface AppNotification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  ticketId: string | null;
+  isRead: boolean;
+  createdAt: string;
 }

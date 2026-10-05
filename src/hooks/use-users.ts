@@ -22,6 +22,7 @@ interface CreateUserInput {
   firstName: string;
   lastName: string;
   role: Role;
+  departmentId?: string;
 }
 
 export function useCreateUser() {
@@ -43,6 +44,49 @@ export function useDeactivateUser() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["users"] });
       toast.success("User deactivated");
+    },
+    onError: onApiError,
+  });
+
+}
+
+export function useUpdateUser() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: Partial<{ firstName: string; lastName: string; role: Role; departmentId: string | null }>;
+    }) => apiClient.patch<User>(`/users/${id}`, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["users"] });
+      toast.success("User updated");
+    },
+    onError: onApiError,
+  });
+}
+
+export function useReactivateUser() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => apiClient.patch<User>(`/users/${id}/reactivate`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["users"] });
+      toast.success("User reactivated");
+    },
+    onError: onApiError,
+  });
+}
+
+export function useDeleteUser() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => apiClient.delete(`/users/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["users"] });
+      toast.success("User deleted");
     },
     onError: onApiError,
   });

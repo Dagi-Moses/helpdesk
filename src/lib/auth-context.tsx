@@ -10,7 +10,6 @@ interface AuthContextValue {
   user: User | null;
   isLoading: boolean;
   login: (input: LoginInput) => Promise<void>;
-  // register: (input: RegisterInput) => Promise<void>;
   register: (input: RegisterInput) => Promise<string>;
   logout: () => void;
 }
@@ -46,13 +45,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(res.data.user);
     router.push("/dashboard");
   };
-
-  // const register = async (input: RegisterInput) => {
-  //   const res = await apiClient.post<AuthResponse>("/auth/register", input, true);
-  //   tokenStore.set(res.data.accessToken, res.data.refreshToken);
-  //   setUser(res.data.user);
-  //   router.push("/dashboard");
-  // };
 
   const register = async (input: RegisterInput) => {
   const res = await apiClient.post<{ message: string }>("/auth/register", input, true);

@@ -12,11 +12,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiClient, ApiError } from "@/lib/api-client";
 import { toast } from "sonner";
-import { MailCheck } from "lucide-react";
+import { Eye, EyeOff, MailCheck } from "lucide-react";
 
 export default function LoginPage() {
   const { login } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
   const [showResend, setShowResend] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
   const [isResending, setIsResending] = useState(false);
@@ -115,11 +116,27 @@ export default function LoginPage() {
           {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
         </div>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
-          {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
-        </div>
+           <div className="space-y-1.5">
+        
+                    <Label htmlFor="password">Password</Label>
+                    <div className="relative">
+                      <Input id="password" type={showPassword ? "text" : "password"} placeholder="••••••••" {...register("password")} />
+        
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                      >
+                        {showPassword ? (
+                          < EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </button>
+                    </div>
+                    {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
+                  </div>
 
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? "Signing in…" : "Sign in"}
@@ -166,14 +183,7 @@ export default function LoginPage() {
           </div>
         </div>
       )}
-   {/* <div className="mt-3 text-center">
-  <Link
-    href="/forgot-password"
-    className="text-sm font-medium text-primary hover:underline"
-  >
-    Forgot your password?
-  </Link>
-</div> */}
+ 
 <p className="mt-6 text-center text-[0.85rem] text-muted-foreground">
   <Link href="/forgot-password" className="font-medium text-primary hover:underline">
         Forgot Password?{" "}
@@ -189,9 +199,6 @@ export default function LoginPage() {
         </Link>
       </p>
 
-      {/* <div className="mt-8 rounded-md border border-border bg-muted/50 p-3 font-mono text-xs text-muted-foreground">
-        Demo: employee@helpdesk.local / agent@helpdesk.local / admin@helpdesk.local — Password123
-      </div> */}
     </AuthShell>
   );
 }

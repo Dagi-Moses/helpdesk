@@ -15,6 +15,9 @@ import { useUsers } from "@/hooks/use-users";
 import { useAuth } from "@/lib/auth-context";
 import { formatDateTime, ticketCode } from "@/lib/utils";
 import { TicketStatus } from "@/lib/types";
+import { AttachmentList } from "@/components/tickets/attachment-list";
+import { useEffect } from "react";
+import { useMarkTicketNotificationsRead } from "@/hooks/use-notifications";
 
 const ALLOWED_TRANSITIONS: Record<TicketStatus, TicketStatus[]> = {
   OPEN: ["ASSIGNED", "IN_PROGRESS"],
@@ -26,12 +29,24 @@ const ALLOWED_TRANSITIONS: Record<TicketStatus, TicketStatus[]> = {
 };
 
 export default function TicketDetailPage() {
+
+
   const params = useParams<{ id: string }>();
   const { user } = useAuth();
   const { data, isLoading } = useTicket(params.id);
   const updateStatus = useUpdateTicketStatus(params.id);
   const assignTicket = useAssignTicket(params.id);
   const { data: agentsRes } = useUsers("SUPPORT_AGENT");
+
+
+  const { mutate: markTicketNotificationsRead } =
+    useMarkTicketNotificationsRead();
+
+  useEffect(() => {
+    if (data?.data.id) {
+      markTicketNotificationsRead(data.data.id);
+    }
+  }, [data?.data.id, markTicketNotificationsRead]);
 
   if (isLoading || !data) {
     return (
@@ -49,6 +64,9 @@ export default function TicketDetailPage() {
   const canManageStatus = user?.role === "SUPPORT_AGENT" || user?.role === "ADMIN";
   const canAssign = user?.role === "ADMIN";
   const transitions = ALLOWED_TRANSITIONS[ticket.status];
+
+
+
 
   return (
     <>
@@ -87,6 +105,7 @@ export default function TicketDetailPage() {
               <Tabs defaultValue="comments">
                 <TabsList>
                   <TabsTrigger value="comments">Comments</TabsTrigger>
+                  <TabsTrigger value="attachments">Attachments</TabsTrigger>
                   <TabsTrigger value="history">History</TabsTrigger>
                 </TabsList>
                 <TabsContent value="comments">
@@ -95,6 +114,9 @@ export default function TicketDetailPage() {
                     comments={ticket.comments ?? []}
                     canPostInternal={user?.role !== "EMPLOYEE"}
                   />
+                </TabsContent>
+                <TabsContent value="attachments">
+                  <AttachmentList ticketId={ticket.id} attachments={ticket.attachments ?? []} />
                 </TabsContent>
                 <TabsContent value="history">
                   <HistoryTimeline history={ticket.history ?? []} />
